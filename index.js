@@ -119,6 +119,37 @@ const ejercicio8 = async (ciudad) => {
     }
 };
 
+// --- EJERCICIO 9: Obtener Lista de Tareas (Fetch) ---
+const ejercicio9 = async (userId) => {
+    try {
+        console.log(`\n--- EJERCICIO 9: Tareas Pendientes Usuario ${userId} ---`);
+        const res = await fetch(`https://jsonplaceholder.typicode.com/todos?userId=${userId}`);
+        const tareas = await res.json();
+        
+        // Filtramos las tareas que NO están completadas (completed: false)
+        const pendientes = tareas.filter(t => !t.completed);
+        
+        console.log(`El usuario tiene ${pendientes.length} tareas pendientes.`);
+        pendientes.slice(0, 3).forEach(t => console.log(`- [ ] ${t.title}`));
+    } catch (error) {
+        console.log("Error en Ejercicio 9:", error.message);
+    }
+};
+
+// --- EJERCICIO 10: Obtener y Mostrar Artículos (Promesa) ---
+const obtenerArticulos = () => {
+    // El ejercicio pide que la función RETORNE una promesa
+    return new Promise(async (resolve, reject) => {
+        try {
+            console.log("\n--- EJERCICIO 10: Obtener Artículos (Promesa) ---");
+            const res = await axios.get("https://jsonplaceholder.typicode.com/posts");
+            resolve(res.data); // Si sale bien, resolvemos con los datos
+        } catch (error) {
+            reject("Error al obtener artículos: " + error.message);
+        }
+    });
+};
+
 await ejercicio1();
 await ejercicio2();
 await ejercicio3();
@@ -127,3 +158,13 @@ await ejercicio5();
 await ejercicio6();
 await ejercicio7();
 await ejercicio8("Buenos Aires");
+await ejercicio9(3);
+
+// Ejercicio 10 llamado como Promesa
+obtenerArticulos()
+    .then(articulos => {
+        console.log(`Se obtuvieron ${articulos.length} artículos correctamente.`);
+        console.log("Primer artículo:", articulos[0].title);
+        console.log("\n¡GUÍA COMPLETADA EXITOSAMENTE! 🏆");
+    })
+    .catch(err => console.log(err));
