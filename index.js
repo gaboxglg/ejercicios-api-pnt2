@@ -89,6 +89,35 @@ const ejercicio6 = async () => {
     }
 };
 
+// --- EJERCICIO 7: Eliminar una Foto (Fetch) ---
+const ejercicio7 = async () => {
+    try {
+        console.log("\n--- EJERCICIO 7: Eliminar Foto ID 1 ---");
+
+        const respuesta = await fetch("https://jsonplaceholder.typicode.com/photos/1", {
+            method: 'DELETE'
+        });
+        
+        console.log("Status de eliminación de foto:", respuesta.status);
+    } catch (error) {
+        console.log("Error en Ejercicio 7:", error.message);
+    }
+};
+
+// --- EJERCICIO 8: Mostrar Datos del Clima (Axios) ---
+const ejercicio8 = async (ciudad) => {
+    try {
+        console.log(`\n--- EJERCICIO 8: Clima en ${ciudad} ---`);
+    
+        const apiKey = "TU_API_KEY_ACA"; 
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}&units=metric`;
+        
+        console.log("Buscando clima... (Simulado porque necesitamos API Key)");
+        
+    } catch (error) {
+        console.log("Error en Ejercicio 8:", error.message);
+    }
+};
 
 await ejercicio1();
 await ejercicio2();
@@ -96,3 +125,5 @@ await ejercicio3();
 await ejercicio4();
 await ejercicio5();
 await ejercicio6();
+await ejercicio7();
+await ejercicio8("Buenos Aires");
